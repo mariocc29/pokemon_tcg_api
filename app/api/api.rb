@@ -6,7 +6,7 @@ class Api < Grape::API
 
   format :json
 
-  mount V1::PokemonDeckApi
+  mount V1::DeckApi
 
   # Endpoint for health check, used to verify the API's operational status.
   # Returns a JSON response with a 'health' key set to 'ok' if the API is functioning properly.

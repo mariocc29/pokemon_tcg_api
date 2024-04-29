@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe V1::PokemonDeckApi, type: :request do
+RSpec.describe V1::DeckApi, type: :request do
   include Rack::Test::Methods
 
   describe 'GET /api/v1/decks' do

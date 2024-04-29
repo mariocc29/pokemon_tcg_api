@@ -3,11 +3,11 @@
 module V1
   # Version: 1
   # This class represents the API for handling endpoints.
-  class PokemonDeckApi < Grape::API
+  class DeckApi < Grape::API
     version 'v1', using: :path
 
     resource :decks do
-      desc 'Handle pokemon deck api.',
+      desc 'Returns information pokemon deck api.',
            is_array: true
       get do
         []
