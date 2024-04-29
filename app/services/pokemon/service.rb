@@ -1,3 +1,7 @@
+require 'uri'
+require 'json'
+require 'net/http'
+
 module Pokemon
   class Service
 

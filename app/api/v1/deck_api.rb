@@ -14,7 +14,7 @@ module V1
             ApplicationException::BadRequestException.to_h,
            ]
       params do
-        optional :type, type: String, values: ['grass', 'fire', 'water'], desc: 'The type by which you want to filter decks.'
+        optional :type, type: String, values: Pokemon::Types::Handler.get, desc: 'The type by which you want to filter decks.'
       end
       get do
         decks = []

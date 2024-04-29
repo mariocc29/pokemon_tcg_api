@@ -9,9 +9,12 @@ module Pokemon
       end
 
       def build
-        get['data'].map do |type|
-          { 'label': type.downcase }
-        end
+        redis_key = 'types'
+        return Rails.cache.read(redis_key) if Rails.cache.exist?(redis_key)
+
+        data = get['data'].map { |type| type.downcase }
+        Rails.cache.write(redis_key, data, expires_in: 1.day) if data
+        data
       end
     end
   end

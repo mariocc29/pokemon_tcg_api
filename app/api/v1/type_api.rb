@@ -9,11 +9,10 @@ module V1
     resource :types do
       desc 'Returns information about types of the pokemons.',
            is_array: true,
-           success: Serializers::TypeSerializer,
+           success: { code: 200, message: 'Array of pokemon types' },
            failure: []
       get do
-        types = Pokemon::Types::Handler.get
-        present types, with: Serializers::TypeSerializer
+        Pokemon::Types::Handler.get
       end
     end
   end

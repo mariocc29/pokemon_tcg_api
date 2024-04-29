@@ -2,7 +2,7 @@
 
 module V1
   module Serializers
-    # Defines the structure for serializing holiday information.
+    # Defines the structure for serializing deck information.
     class DeckSerializer < Grape::Entity
       expose :label, documentation: { type: String, desc: 'Label or name of the deck.' }
       expose :type, documentation: { type: String, desc: 'The types of Pokémon included in the deck.' }
