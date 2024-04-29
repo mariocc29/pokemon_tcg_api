@@ -23,6 +23,7 @@ module Pokemon
 
     private
 
+    # Method to establish an HTTP connection.
     def connect
       http = Net::HTTP.new(@uri.host, @uri.port)
       http.use_ssl = true
