@@ -7,7 +7,7 @@
 /.bundle
 
 # Ignore all environment files (except templates).
-/.env*
+.env
 !/.env*.erb
 
 # Ignore all default key files.
@@ -29,3 +29,7 @@
 !/storage/.keep
 /tmp/storage/*
 !/tmp/storage/.keep
+
+# Ignore custom files
+.ruby-lsp
+.byebug_history
