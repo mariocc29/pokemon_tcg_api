@@ -3,12 +3,14 @@ require 'json'
 require 'net/http'
 
 module Pokemon
+  # Service class responsible for making HTTP requests to the Pokemon API.
   class Service
 
     def initialize(endpoint)
       @uri = URI("#{Rails.application.config.pokemon[:url]}/#{endpoint}")
     end
 
+    # Method to make a GET request to the API and parse the JSON response.
     def get
       response = connect do |http|
         request = Net::HTTP::Get.new @uri
