@@ -7,11 +7,23 @@ RSpec.describe V1::DeckApi, type: :request do
 
   describe 'GET /api/v1/decks' do
     subject do
-      get "/api/v1/decks/"
+      get "/api/v1/decks/", params
     end
 
-    it 'retrieves a list of decks' do
-      expect(subject.status).to eq(HttpStatus::OK)
+    context 'with valid parameters' do
+      let(:params) { { type: 'grass' } }
+
+      it 'retrieves a list of decks' do
+        expect(subject.status).to eq(HttpStatus::OK)
+      end
+    end
+
+    context 'with invalid parameters' do
+      let(:params) { { type: 'no-valid-type' } }
+
+      it 'returns a bad request error' do
+        expect(subject.status).to eq(HttpStatus::BAD_REQUEST)
+      end
     end
   end
 end

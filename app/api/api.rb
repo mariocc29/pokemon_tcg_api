@@ -14,4 +14,14 @@ class Api < Grape::API
   get :health do
     { health: 'ok' }
   end
+
+  add_swagger_documentation(
+    info: {
+      title: 'Pokemon Deck API',
+      version: 'v1'
+    },
+    hide_documentation_path: true,
+    mount_path: '/docs',
+    hide_format: true
+  )
 end

@@ -36,6 +36,26 @@ module ApplicationException
       super(HttpStatus::NOT_FOUND, 'ERR002', "No route matches [#{request_method}] \"#{path_info}\"")
     end
   end
+
+  # Custom exception class for handling Bad Request (400) errors.
+  class BadRequestException < BaseException
+    CODE = 'ERR003'
+
+    def initialize(message)
+      super(HttpStatus::BAD_REQUEST, CODE, message)
+    end
+
+    def self.to_h
+      { code: HttpStatus::BAD_REQUEST, message: "[#{CODE}] - Bad Request message" }
+    end
+  end
+
+  # Custom exception class for handling Internal Server Error (500) errors.
+  class InternalServerErrorException < BaseException
+    def initialize
+      super(HttpStatus::INTERNAL_SERVER_ERROR, 'ERR004', 'Internal Server Error')
+    end
+  end
 end
 
 
