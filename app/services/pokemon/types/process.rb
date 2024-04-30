@@ -23,6 +23,8 @@ module Pokemon
 
       private
 
+      attr_reader :pokemon_service, :redis_key
+
       # Fetches Pokemon types data from the Pokemon service.
       # @return [Array<String>] An array of Pokemon types
       def fetch_data

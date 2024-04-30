@@ -3,39 +3,40 @@
 require 'rails_helper'
 
 RSpec.describe Pokemon::Types::Process do
-  describe('#build') do
-    subject { described_class.new }
+  describe('#get') do
+    subject { described_class.new(pokemon_service) }
+
+    let(:pokemon_service) { instance_double('Pokemon::Service') }
+    let(:expected_result) { %w[fairy darkness dragon] }
 
     context 'when data is in cache' do
-      let(:api_response) { {'data': %w[Grass Fire Water]} }
       let(:cached_data) { %w[fairy darkness dragon] }
   
       before :each do
-        allow_any_instance_of(Pokemon::Service).to receive(:get).and_return( JSON.parse(api_response.to_json) )
         allow(Rails.cache).to receive(:exist?).with('types').and_return(true)
         allow(Rails.cache).to receive(:read).with('types').and_return(cached_data)
       end
   
-      it 'returns a list of types' do
-        expect(subject.build[0]).to eql('fairy')
-        expect(subject.build[1]).to eql('darkness')
-        expect(subject.build[2]).to eql('dragon')
+      it 'returns a list of types', :aggregate_failures do
+        expect(subject.get).to match_array(expected_result)
+        expect(subject).not_to receive(:fetch_data)
       end
     end
-    
+
     context 'when data is not in cache' do
-      let(:api_response) { {'data': %w[Grass Fire Water]} }
+      let(:mock_response) { {'data': %w[Fairy Darkness Dragon]} }
   
       before :each do
-        allow_any_instance_of(Pokemon::Service).to receive(:get).and_return( JSON.parse(api_response.to_json) )
+        allow(pokemon_service).to receive(:endpoint=)
+        allow(pokemon_service).to receive(:querystring=)
+        allow(pokemon_service).to receive(:get).and_return(JSON.parse(mock_response.to_json))
+
         allow(Rails.cache).to receive(:exist?).with('types').and_return(false)
         allow(Rails.cache).to receive(:write)
       end
   
       it 'returns a list of types' do
-        expect(subject.build[0]).to eql('grass')
-        expect(subject.build[1]).to eql('fire')
-        expect(subject.build[2]).to eql('water')
+        expect(subject.get).to match_array(expected_result)
       end
     end
   end
