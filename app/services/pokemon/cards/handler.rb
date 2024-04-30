@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'elasticsearch'
-
 module Pokemon
   module Cards
     # Handler class responsible for retrieving the cards of Pokemon Game.

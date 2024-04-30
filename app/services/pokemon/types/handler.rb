@@ -4,7 +4,8 @@ module Pokemon
   module Types
     # Handler class responsible for retrieving types of Pokemon.
     class Handler
-      # Method to retrieve Pokemon types.
+      # Method to retrieve Pokemon types
+      # @return [Array] An array of Pokemon types
       def self.get
         pokemon_service = Pokemon::Service.instance
 
