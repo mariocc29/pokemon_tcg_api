@@ -11,21 +11,26 @@ module V1
            is_array: true,
            success: Serializers::DeckSerializer,
            failure: [
-            ApplicationException::BadRequestException.to_h,
+             ApplicationException::BadRequestException.to_h
            ]
       params do
-        optional :category, type: String, values: Pokemon::Types::Handler.get, desc: 'The category by which you want to filter decks.'
+        optional :category, type: String, values: Pokemon::Types::Handler.get,
+                            desc: 'The category by which you want to filter decks.'
       end
       get do
-        decks = Deck.all
+        decks = if params[:category]
+                  Deck.where(category: params[:category])
+                else
+                  Deck.all
+                end
         present decks, with: Serializers::DeckSerializer
       end
 
       desc 'Create a new deck.',
-        success: Serializers::DeckSerializer,
-        failure: [
-          ApplicationException::BadRequestException.to_h,
-        ]
+           success: Serializers::DeckSerializer,
+           failure: [
+             ApplicationException::BadRequestException.to_h
+           ]
       params do
         requires :label, type: String, desc: 'The label of the deck'
         requires :category, type: String, values: Pokemon::Types::Handler.get, desc: 'The category of the deck'
@@ -33,7 +38,7 @@ module V1
       post do
         deck = Deck.new(label: params[:label], category: params[:category])
         deck.save
-        
+
         present deck, with: Serializers::DeckSerializer
       end
     end
