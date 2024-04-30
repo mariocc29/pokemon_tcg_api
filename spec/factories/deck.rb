@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :deck do
     label { Faker::Internet.slug }
+    category { "fairy" }
     cards { 
       [{
         id: Faker::Alphanumeric.alpha(number: 10),

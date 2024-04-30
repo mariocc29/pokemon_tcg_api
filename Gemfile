@@ -55,6 +55,7 @@ group :development, :test do
   gem 'rack-test' # Add the 'rack/test' gem for testing Rack applications with a simple API.
   gem 'rspec-json_expectations' # Integrate 'rspec/json_expectations' gem for additional JSON-related expectations in RSpec.
   gem 'rspec-rails' # Behavior-driven development for Ruby on Rails applications
+  gem 'shoulda-matchers', '~> 5.0'  # Simple one-liner tests for common Rails functionality
 end
 
 group :development do
