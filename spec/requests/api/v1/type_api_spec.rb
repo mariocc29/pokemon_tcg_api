@@ -10,8 +10,12 @@ RSpec.describe V1::TypeApi, type: :request do
       get "/api/v1/types/"
     end
 
-    it 'retrieves a list of decks' do
-      expect(subject.status).to eq(HttpStatus::OK)
+    it 'retrieves a list of decks', :aggregate_failures do
+      response = subject
+      expect(response.status).to eq(HttpStatus::OK)
+
+      expected_result = %w[colorless darkness dragon fairy fighting fire grass lightning metal psychic water]
+      expect(JSON.parse(response.body)).to match_array(expected_result)
     end
   end
 end

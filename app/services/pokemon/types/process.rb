@@ -26,7 +26,7 @@ module Pokemon
       # Fetches Pokemon types data from the Pokemon service.
       # @return [Array<String>] An array of Pokemon types
       def fetch_data
-        @pokemon_service.endpoint = 'cards'
+        @pokemon_service.endpoint = 'types'
         @pokemon_service.querystring = ''
         @pokemon_service.get['data']
       end
