@@ -45,7 +45,19 @@ To deploy the application, follow these steps:
   bundle install
 ```
 
-2. Start the server:
+3. Run migrations:
+
+```bash
+  bin/rails db:migrate; RAILS_ENV=test bin/rails db:migrate
+```
+
+4. Run seeders:
+
+```bash
+  bin/rails db:seed
+```
+
+5. Start the server:
 
 ```bash
   bin/rails serve
