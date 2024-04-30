@@ -5,12 +5,10 @@ module V1
     # Defines the structure for serializing deck information.
     class DeckSerializer < Grape::Entity
       expose :label, documentation: { type: String, desc: 'Label or name of the deck.' }
-      expose :type, documentation: { type: String, desc: 'The types of Pokémon included in the deck.' }
+      expose :category, documentation: { type: String, desc: 'The types of Pokémon included in the deck.' }
       expose :cards, documentation: { type: Array, desc: 'Array of cards in the deck.' } do |deck, options|
-        deck[:cards].map do |card|
-          {
-            name: card[:name],
-          }
+        deck.cards.map do |card|
+          { image: card['image'] }
         end
       end
     end

@@ -1,9 +1,7 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# frozen_string_literal: true
+
+# Check if the CardIndex table is empty before performing the PokemonCardsIndexerJob.
+# This ensures that the job is only executed when there are no existing records in the CardIndex.
+if CardIndex.count == 0
+  PokemonCardsIndexerJob.perform_now
+end
