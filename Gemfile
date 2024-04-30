@@ -41,6 +41,9 @@ gem 'grape' # REST-like API framework for Ruby
 gem 'grape-entity' # Entity serialization for Grape APIs
 gem 'grape-swagger' # Adds swagger compliant documentation to your Grape API
 gem 'grape-swagger-entity' # Swagger documentation for Grape entities
+gem 'sidekiq' # Background processing for Ruby.
+gem 'elasticsearch' # Integrates Elasticsearch with Rails
+gem 'chewy', ">= 7.3" # ODM (Object Document Mapper) to integrate Elasticsearch with Rails
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

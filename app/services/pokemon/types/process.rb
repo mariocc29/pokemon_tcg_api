@@ -3,20 +3,32 @@
 module Pokemon
   module Types
     # Process class responsible for handling types of Pokemon.
-    class Process < Pokemon::Service
-
-      def initialize
-        super('types')
+    class Process
+      # Initializes the Process with a Pokemon service and a Redis key.
+      # @param pokemon_service [Pokemon::Service] The service for fetching Pokemon data
+      def initialize(pokemon_service)
+        @pokemon_service = pokemon_service
+        @redis_key = 'types'
       end
 
-      # Builds and retrieves the types of Pokemon.
-      def build
-        redis_key = 'types'
-        return Rails.cache.read(redis_key) if Rails.cache.exist?(redis_key)
+      # Retrieves types of Pokemon from the cache if available, otherwise fetches and caches them.
+      # @return [Array<String>] An array of Pokemon types
+      def get
+        return Rails.cache.read(@redis_key) if Rails.cache.exist?(@redis_key)
 
-        data = get['data'].map { |type| type.downcase }
-        Rails.cache.write(redis_key, data, expires_in: 1.day) if data
+        data = fetch_data.map(&:downcase)
+        Rails.cache.write(@redis_key, data, expires_in: 1.day) if data
         data
+      end
+
+      private
+
+      # Fetches Pokemon types data from the Pokemon service.
+      # @return [Array<String>] An array of Pokemon types
+      def fetch_data
+        @pokemon_service.endpoint = 'cards'
+        @pokemon_service.querystring = ''
+        @pokemon_service.get['data']
       end
     end
   end

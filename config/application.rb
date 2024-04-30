@@ -51,6 +51,10 @@ module PokemonTcgApi
       g.api true
     end
 
+    # Configures Redis as the cache store using the Redis URL specified in the environment variables.
     config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'] }
+
+    # Sets Sidekiq as the queue adapter for Active Job, enabling background job processing with Sidekiq.
+    config.active_job.queue_adapter = :sidekiq
   end
 end
