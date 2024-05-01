@@ -33,7 +33,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
-# gem "rack-cors"
+gem "rack-cors"
 
 # Customization gems for the project
 gem 'dotenv-rails' # Loads environment variables from a .env file into ENV when the Rails app initializes.
